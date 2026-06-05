@@ -1,0 +1,79 @@
+generator client {
+    provider = "prisma-client-js"
+    binaryTargets = ["native", "rhel-openssl-3.0.x"]
+    output = "/home/ubuntu/mahin_kuhenuri_web/nextjs_space/node_modules/.prisma/client"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String
+  role          String    @default("admin")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  lang      String   @default("es")
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+}
+
+model Service {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  category    String
+  sortOrder   Int     @default(0)
+  imageUrl    String?
+  active      Boolean @default(true)
+  nameEs      String
+  nameCa      String
+  nameDe      String
+  nameEn      String
+  descEs      String  @db.Text
+  descCa      String  @db.Text
+  descDe      String  @db.Text
+  descEn      String  @db.Text
+  shortDescEs String  @default("")
+  shortDescCa String  @default("")
+  shortDescDe String  @default("")
+  shortDescEn String  @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteContent {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  valueEs   String   @db.Text
+  valueCa   String   @db.Text
+  valueDe   String   @db.Text
+  valueEn   String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model GalleryImage {
+  id                String  @id @default(cuid())
+  cloud_storage_path String?
+  isPublic          Boolean @default(true)
+  imageUrl          String
+  captionEs         String  @default("")
+  captionCa         String  @default("")
+  captionDe         String  @default("")
+  captionEn         String  @default("")
+  sortOrder         Int     @default(0)
+  active            Boolean @default(true)
+  createdAt         DateTime @default(now())
+}
