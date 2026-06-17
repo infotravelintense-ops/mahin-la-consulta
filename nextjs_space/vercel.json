@@ -1,0 +1,6 @@
+{
+  "framework": "nextjs",
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "node -e \"const fs=require('fs');const p='prisma/schema.prisma';if(fs.existsSync(p)){let s=fs.readFileSync(p,'utf8');s=s.split('\\n').filter(l=>!l.includes('output')&&!l.includes('binaryTargets')).join('\\n');fs.writeFileSync(p,s)}\" && npx prisma generate && next build",
+  "outputDirectory": ".next"
+}
